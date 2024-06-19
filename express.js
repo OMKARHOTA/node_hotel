@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const db = require('./db'); // Ensure correct path to your MongoDB connection setup
 const routes = require('./routes');
+require('dotenv').config();
 
 const app = express();
 
