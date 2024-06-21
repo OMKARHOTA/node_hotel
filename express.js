@@ -8,8 +8,12 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(bodyParser.json());
 
+app.use(bodyParser.json());
+app.get('/',(req,res)=>
+{
+ res.sendFile(('welcome to our hotel'));
+})
 // Routes
 app.use(routes);
 
