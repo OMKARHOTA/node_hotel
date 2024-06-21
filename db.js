@@ -1,7 +1,15 @@
 const mongoose = require('mongoose');
-require('dotenv').config();
-const mongoURL = process.env.MONGODB_URL
-//const localUrl=process.env.LOCAL_URL
+require('dotenv').config(); // Load environment variables from .env file
+
+// Determine which MongoDB URL to use
+const isProduction = process.env.NODE_ENV === 'production';
+const mongoURL = isProduction ? process.env.MONGODB_URL : process.env.LOCAL_URL;
+
+if (!mongoURL) {
+    console.error('Error: MongoDB URL is not defined in the environment variables.');
+    process.exit(1);
+}
+
 // Setup connection
 mongoose.connect(mongoURL, {
     useNewUrlParser: true,
@@ -11,7 +19,7 @@ mongoose.connect(mongoURL, {
 // Get the default connection
 const db = mongoose.connection;
 
-// Define event Types   
+// Define event types
 db.on('connected', () => {
     console.log('Mongoose connected');
 });
@@ -30,5 +38,6 @@ process.on('SIGINT', async () => {
 });
 
 module.exports = db;
+
 
 
