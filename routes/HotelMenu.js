@@ -5,7 +5,7 @@ const Menu = require('../models/menu');
 // Create a new menu item
 router.post('/menu', async (req, res) => {
     try {
-        const data = req.body;
+          const data = req.body;
         const newMenu = new Menu(data);
         const response = await newMenu.save();
         console.log('Data saved');
