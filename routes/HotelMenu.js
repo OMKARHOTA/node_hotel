@@ -5,13 +5,13 @@ const Menu = require('../models/menu');
 // Create a new menu item
 router.post('/menu', async (req, res) => {
     try {
-          const data = req.body;
+        const data = req.body;
         const newMenu = new Menu(data);
         const response = await newMenu.save();
-        console.log('Data saved');
+        console.log('Data saved:', response);
         res.status(200).json(response);
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error saving data:', error.message);
         res.status(500).json({ error: 'An error occurred while saving the menu item' });
     }
 });

@@ -9,11 +9,15 @@ router.post('/person', async (req, res) => {
         const data = req.body;
         const newPerson = new Person(data);
         const response = await newPerson.save();
-        console.log('Data saved');
+        console.log('Person saved:', response);
         res.status(200).json(response);
-    } catch (err) {
-        console.error('Error:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
+    } catch (error) {
+        if (error.code === 11000) {
+            res.status(400).json({ error: 'Email already exists' });
+        } else {
+            console.error('Error saving person:', error.message);
+            res.status(500).json({ error: 'An error occurred while saving the person' });
+        }
     }
 });
 
